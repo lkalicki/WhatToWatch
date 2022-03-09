@@ -39,9 +39,8 @@ export const ADD_USER = gql`
           movieId
           title
           imageURL
-          actors
-          genre
-          description
+          type
+          year
         }
       }
     }
@@ -58,9 +57,8 @@ export const SAVE_MOVIE = gql`
         movieId
         title
         imageURL
-        actors
-        genre
-        description
+        type
+        year
       }
     }
   }
