@@ -4,9 +4,9 @@ import Auth from '../utils/auth';
 import { saveMovieIds, getSavedMovieIds } from '../utils/localStorage';
 import { useMutation } from '@apollo/client';
 import { SAVE_MOVIE } from '../utils/mutations';
-require('dotenv').config();
 
-const API_KEY = process.env.REACT_APP_API_KEY
+
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 const SearchMovies = () => {
   const [searchedMovies, setSearchedMovies] = useState([]);
