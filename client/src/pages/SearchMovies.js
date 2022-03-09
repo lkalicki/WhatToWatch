@@ -1,10 +1,9 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
 import Auth from '../utils/auth';
 import { saveMovieIds, getSavedMovieIds } from '../utils/localStorage';
 import { useMutation } from '@apollo/client';
 import { SAVE_MOVIE } from '../utils/mutations';
-import axios from 'axios'
 
 const SearchMovies = () => {
   const [searchedMovies, setSearchedMovies] = useState([]);
@@ -26,21 +25,23 @@ const SearchMovies = () => {
 
     try {
       const response = await fetch(
-        `https://api.themoviedb.org/3/search/movie?api_key=1234&query=${searchInput}`);
+        `https://api.themoviedb.org/3/search/movie?api_key=0212bf5b81cf6afbf3fdfa9739d059c7&query=${searchInput}&page=1`
+        );
 
         if (!response.ok) {
           throw new Error('Something went wrong!');
         }
-    
-    const {items} = await response.json(); 
+   
+    const {results} = await response.json();
        
-    const movieData = items.map((movie) => ({
+    let movieData = results.map((movie) => ({
         movieId: movie.id,
         title: movie.title,
-        imageURL: movie.backdrop_path,
+        imageURL: movie.poster_path,
         type: movie.overview,
         year: movie.release_date,
         }));
+
       setSearchedMovies(movieData);        
       setSearchInput('');
     } catch (err) {
@@ -110,6 +111,8 @@ const SearchMovies = () => {
                 ) : null}
                 <Card.Body>
                   <Card.Title>{movie.title}</Card.Title>
+                  <p className='small'>Release Date: {movie.year}</p>
+                  <Card.Text>{movie.type}</Card.Text>
                   {Auth.loggedIn() && (
                     <Button
                       disabled={savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)}
