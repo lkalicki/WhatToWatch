@@ -23,7 +23,7 @@ const typeDefs = gql`
   }
 
   input InputMovie {
-    movieId: ID!
+    movieId: String
     title: String
     imageURL: String
     type: String

@@ -65,7 +65,6 @@ const SearchMovies = () => {
       const { data } = await saveMovie({
         variables: { newMovie: { ...movieToSave } },
       });
-      console.log(saveMovie);
 
       setSavedMovieIds([...savedMovieIds, movieToSave.movieId]);
     } catch (err) {
