@@ -61,6 +61,7 @@ const SearchMovies = () => {
       return false;
     }
 
+
     try {
       const { data } = await saveMovie({
         variables: { newMovie: { ...movieToSave } },
