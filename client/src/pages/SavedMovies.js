@@ -36,7 +36,7 @@ const SavedMovies = () => {
 
   return (
     <>
-      <Jumbotron fluid className='text-warning bg-info'>
+      <Jumbotron fluid className='text-light bg-dark'>
         <Container>
           <h1>Viewing saved movies!</h1>
         </Container>
@@ -51,9 +51,11 @@ const SavedMovies = () => {
           {userData.savedMovies.map((movie) => {
             return (
               <Card key={movie.movieId} border='dark'>
-                {movie.image ? <Card.Img src={movie.imageURL} alt={`The cover for ${movie.title}`} variant='top' /> : null}
+                {movie.imageURL ? <Card.Img src={movie.imageURL} alt={`The cover for ${movie.title}`} variant='top' /> : null}
                 <Card.Body>
                   <Card.Title>{movie.title}</Card.Title>
+                  <p className='small'>Release Date: {movie.year}</p>
+                  <Card.Text>{movie.type}</Card.Text>
                   <Button className='btn-block btn-danger' onClick={() => handleDeleteMovie(movie.movieId)}>
                     Delete this Movie!
                   </Button>

@@ -37,7 +37,7 @@ const SearchMovies = () => {
    
     const {results} = await response.json();
        
-    let movieData = results.map((movie) => ({
+    const movieData = results.map((movie) => ({
         movieId: movie.id,
         title: movie.title,
         imageURL: movie.poster_path,
@@ -65,6 +65,7 @@ const SearchMovies = () => {
       const { data } = await saveMovie({
         variables: { newMovie: { ...movieToSave } },
       });
+      console.log(saveMovie);
 
       setSavedMovieIds([...savedMovieIds, movieToSave.movieId]);
     } catch (err) {
@@ -118,7 +119,7 @@ const SearchMovies = () => {
                   <Card.Text>{movie.type}</Card.Text>
                   {Auth.loggedIn() && (
                     <Button
-                      disabled={savedMovieIds.some((savedMovieId) => savedMovieId === movie.movieId)}
+                      disabled={savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)}
                       className='btn-block btn-info'
                       onClick={() => handleSaveMovie(movie.movieId)}>
                       {savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)
