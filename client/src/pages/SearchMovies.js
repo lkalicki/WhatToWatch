@@ -4,6 +4,9 @@ import Auth from '../utils/auth';
 import { saveMovieIds, getSavedMovieIds } from '../utils/localStorage';
 import { useMutation } from '@apollo/client';
 import { SAVE_MOVIE } from '../utils/mutations';
+require('dotenv').config();
+
+const API_KEY = process.env.REACT_APP_API_KEY
 
 const SearchMovies = () => {
   const [searchedMovies, setSearchedMovies] = useState([]);
@@ -25,7 +28,7 @@ const SearchMovies = () => {
 
     try {
       const response = await fetch(
-        `https://api.themoviedb.org/3/search/movie?api_key=0212bf5b81cf6afbf3fdfa9739d059c7&query=${searchInput}&page=1`
+        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchInput}&page=1`
         );
 
         if (!response.ok) {
