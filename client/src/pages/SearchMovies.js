@@ -74,7 +74,7 @@ const SearchMovies = () => {
 
   return (
     <>
-      <Jumbotron fluid className='text-warning bg-dark'>
+      <Jumbotron fluid className='text-dark bg-info'>
         <Container>
           <h1>Search for Movies!</h1>
           <Form onSubmit={handleFormSubmit}>
@@ -86,11 +86,11 @@ const SearchMovies = () => {
                   onChange={(e) => setSearchInput(e.target.value)}
                   type='text'
                   size='lg'
-                  placeholder='Type in a keyword to search for'
+                  placeholder='Type in a keyword to search for what to watch'
                 />
               </Col>
               <Col xs={12} md={4}>
-                <Button type='submit' variant='info' size='lg'>
+                <Button type='submit' variant='warning' size='lg'>
                   Submit Search
                 </Button>
               </Col>
@@ -103,7 +103,7 @@ const SearchMovies = () => {
         <h2>
           {searchedMovies.length
             ? `Viewing ${searchedMovies.length} results:`
-            : 'Search a keyword to look-up movies and shows!'}
+            : 'Search a keyword to look-up what to watch!'}
         </h2>
         <CardColumns >
           {searchedMovies.map((movie) => {
@@ -118,7 +118,7 @@ const SearchMovies = () => {
                   <Card.Text>{movie.type}</Card.Text>
                   {Auth.loggedIn() && (
                     <Button
-                      disabled={savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)}
+                      disabled={savedMovieIds.some((savedMovieId) => savedMovieId === movie.movieId)}
                       className='btn-block btn-info'
                       onClick={() => handleSaveMovie(movie.movieId)}>
                       {savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)

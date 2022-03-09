@@ -14,15 +14,12 @@ const movieSchema = new Schema({
   },
   imageUrl: { 
     type: String, 
-    required: true 
   },
  type: { 
     type: String, 
-    required: true 
   },
   year: { 
     type: String, 
-    required: true 
   },
 });
 
