@@ -71,7 +71,7 @@ const SearchMovies = () => {
 
   return (
     <>
-      <Jumbotron fluid className='text-light bg-dark'>
+      <Jumbotron fluid className='text-warning bg-dark'>
         <Container>
           <h1>Search for Movies!</h1>
           <Form onSubmit={handleFormSubmit}>
@@ -83,11 +83,11 @@ const SearchMovies = () => {
                   onChange={(e) => setSearchInput(e.target.value)}
                   type='text'
                   size='lg'
-                  placeholder='Search for a movie'
+                  placeholder='Type in a keyword to search for'
                 />
               </Col>
               <Col xs={12} md={4}>
-                <Button type='submit' variant='success' size='lg'>
+                <Button type='submit' variant='info' size='lg'>
                   Submit Search
                 </Button>
               </Col>
@@ -100,16 +100,16 @@ const SearchMovies = () => {
         <h2>
           {searchedMovies.length
             ? `Viewing ${searchedMovies.length} results:`
-            : 'Search for a movie to begin'}
+            : 'Search a keyword to look-up movies and shows!'}
         </h2>
-        <CardColumns>
+        <CardColumns >
           {searchedMovies.map((movie) => {
             return (
-              <Card key={movie.movieId} border='dark'>
+              <Card key={movie.movieId} border='dark' className="card text-white bg-secondary mb-3">
                 {movie.image ? (
                   <Card.Img src={movie.imageURL} alt={`The cover for ${movie.title}`} variant='top' />
                 ) : null}
-                <Card.Body>
+                <Card.Body >
                   <Card.Title>{movie.title}</Card.Title>
                   <p className='small'>Release Date: {movie.year}</p>
                   <Card.Text>{movie.type}</Card.Text>
