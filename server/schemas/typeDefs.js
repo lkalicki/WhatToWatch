@@ -16,20 +16,18 @@ const typeDefs = gql`
 
   type Movie {
     movieId: ID!
-    actors: [String]
-    description: String
     title: String
-    image: String
-    link: String
+    imageURL: String
+    type: String
+    year: String
   }
 
   input InputMovie {
-    movieId: String
-    actors: [String]
+    movieId: ID!
     title: String
-    description: String
-    image: String
-    link: String
+    imageURL: String
+    type: String
+    year: String
   }
 
   type Query {

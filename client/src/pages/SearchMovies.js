@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
 import Auth from '../utils/auth';
 import { saveMovieIds, getSavedMovieIds } from '../utils/localStorage';
 import { useMutation } from '@apollo/client';
-import { SAVE_BOOK } from '../utils/mutations';
+import { SAVE_MOVIE } from '../utils/mutations';
+import axios from 'axios'
 
 const SearchMovies = () => {
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   const [savedMovieIds, setSavedMovieIds] = useState(getSavedMovieIds());
 
-  const [saveMovie, { error }] = useMutation(SAVE_BOOK);
+  const [saveMovie, { error }] = useMutation(SAVE_MOVIE);
 
   useEffect(() => {
     return () => saveMovieIds(savedMovieIds);
@@ -25,30 +26,28 @@ const SearchMovies = () => {
 
     try {
       const response = await fetch(
-        `https://movie-database-imdb-alternative.p.rapidapi.com/?s=${query}&page=1&r=json`
-      );
- 
+        `https://api.themoviedb.org/3/search/movie?api_key=1234&query=${searchInput}`);
 
-      if (!response.ok) {
-        throw new Error('Something went wrong!');
-      }
-
-      const { items } = await response.json();
-
-      const movieData = items.map((movie) => ({
+        if (!response.ok) {
+          throw new Error('Something went wrong!');
+        }
+    
+    const {items} = await response.json(); 
+       
+    const movieData = items.map((movie) => ({
         movieId: movie.id,
-        actors: movie.volumeInfo.actors || ['No author to display'],
-        title: movie.volumeInfo.title,
-        description: movie.volumeInfo.description,
-        image: movie.volumeInfo.imageLinks?.thumbnail || '',
-      }));
-
-      setSearchedMovies(movieData);
+        title: movie.title,
+        imageURL: movie.backdrop_path,
+        type: movie.overview,
+        year: movie.release_date,
+        }));
+      setSearchedMovies(movieData);        
       setSearchInput('');
     } catch (err) {
       console.error(err);
     }
   };
+  
 
   const handleSaveMovie = async (movieId) => {
     const movieToSave = searchedMovies.find((movie) => movie.movieId === movieId);
@@ -107,12 +106,10 @@ const SearchMovies = () => {
             return (
               <Card key={movie.movieId} border='dark'>
                 {movie.image ? (
-                  <Card.Img src={movie.image} alt={`The cover for ${movie.title}`} variant='top' />
+                  <Card.Img src={movie.imageURL} alt={`The cover for ${movie.title}`} variant='top' />
                 ) : null}
                 <Card.Body>
                   <Card.Title>{movie.title}</Card.Title>
-                  <p className='small'>Authors: {movie.actors}</p>
-                  <Card.Text>{movie.description}</Card.Text>
                   {Auth.loggedIn() && (
                     <Button
                       disabled={savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)}

@@ -36,11 +36,11 @@ export const ADD_USER = gql`
         email
         movieCount
         savedMovies {
-          actors
           movieId
-          image
-          link
           title
+          imageURL
+          actors
+          genre
           description
         }
       }
@@ -48,7 +48,7 @@ export const ADD_USER = gql`
   }
 `;
 
-export const SAVE_BOOK = gql`
+export const SAVE_MOVIE = gql`
   mutation saveMovie($newMovie: InputMovie!) {
     saveMovie(newMovie: $newMovie) {
       _id
@@ -56,17 +56,17 @@ export const SAVE_BOOK = gql`
       email
       savedMovies {
         movieId
-        actors
-        description
         title
-        image
-        link
+        imageURL
+        actors
+        genre
+        description
       }
     }
   }
 `;
 
-export const REMOVE_BOOK = gql`
+export const REMOVE_MOVIE = gql`
   mutation removeMovie($movieId: ID!) {
     removeMovie(movieId: $movieId) {
       _id
@@ -74,11 +74,10 @@ export const REMOVE_BOOK = gql`
       email
       savedMovies {
         movieId
-        actors
-        description
         title
-        image
-        link
+        imageURL
+        type
+        year
       }
     }
   }

@@ -4,11 +4,11 @@ import Auth from '../utils/auth';
 import { removeMovieId } from '../utils/localStorage';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_ME } from '../utils/queries';
-import { REMOVE_BOOK } from '../utils/mutations';
+import { REMOVE_MOVIE } from '../utils/mutations';
 
 const SavedMovies = () => {
   const { loading, data } = useQuery(GET_ME);
-  const [removeMovie, { error }] = useMutation(REMOVE_BOOK);
+  const [removeMovie, { error }] = useMutation(REMOVE_MOVIE);
   const userData = data?.me || {};
 
   // create function that accepts the movie's mongo _id value as param and deletes the movie from the database
@@ -51,11 +51,9 @@ const SavedMovies = () => {
           {userData.savedMovies.map((movie) => {
             return (
               <Card key={movie.movieId} border='dark'>
-                {movie.image ? <Card.Img src={movie.image} alt={`The cover for ${movie.title}`} variant='top' /> : null}
+                {movie.image ? <Card.Img src={movie.imageURL} alt={`The cover for ${movie.title}`} variant='top' /> : null}
                 <Card.Body>
                   <Card.Title>{movie.title}</Card.Title>
-                  <p className='small'>Authors: {movie.actors}</p>
-                  <Card.Text>{movie.description}</Card.Text>
                   <Button className='btn-block btn-danger' onClick={() => handleDeleteMovie(movie.movieId)}>
                     Delete this Movie!
                   </Button>

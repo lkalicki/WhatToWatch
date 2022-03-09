@@ -9,11 +9,10 @@ export const GET_ME = gql`
       movieCount
       savedMovies {
         movieId
-        actors
-        description
         title
-        image
-        link
+        imageURL
+        type
+        year
       }
     }
   }

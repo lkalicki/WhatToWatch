@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 mongoose.connect(
-  process.env.MONGODB_URI || 'mongodb://localhost/imdbmovies',
+  process.env.MONGODB_URI || 'mongodb://localhost/whattowatch',
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
